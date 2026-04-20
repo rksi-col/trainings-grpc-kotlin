@@ -1,4 +1,4 @@
-package org.example.migrations
+package org.example.org.example.migrations
 
 import org.flywaydb.core.Flyway
 import javax.sql.DataSource
@@ -7,8 +7,9 @@ class MigrationService(private val dataSource: DataSource) {
 
     private val flyway: Flyway = Flyway.configure()
         .dataSource(dataSource)
-        .locations("classpath:db/migration") // Папка с SQL-файлами
-        .baselineOnMigrate(true)             // Если БД не пустая — начать с текущего состояния
+        .locations("classpath:db/migration")
+        .baselineOnMigrate(true)
+        .cleanDisabled(false)// Если БД не пустая — начать с текущего состояния
         .load()
 
     fun migrate() {
@@ -25,5 +26,9 @@ class MigrationService(private val dataSource: DataSource) {
         flyway.info().all().forEach { info ->
             println("Version: ${info.version}, State: ${info.state}, Script: ${info.script}")
         }
+    }
+
+    fun repair() {
+        flyway.repair()
     }
 }

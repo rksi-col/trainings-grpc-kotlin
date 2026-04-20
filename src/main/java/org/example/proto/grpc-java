@@ -1,0 +1,11 @@
+ksyunya@ksyunya:~/work/java/trainings/src/main/kotlin$ /home/ksyunya/.local/bin/protoc -I /home/ksyunya/work/java/trainings/ --plugin=protoc-gen-grpc-java=/home/ksyunya/Загрузки/protoc-gen-grpc-java-1.9.1-linux-x86_64.exe  --grpc-java_out=. greeter.prot
+ksyunya@ksyunya:~/work/java/trainings/src/main/kotlin$ /home/ksyunya/.local/bin/protoc -I /home/ksyunya/work/java/trainings/ --plugin=protoc-gen-grpckt=/usr/lib/protoc/protoc-kotlin.sh --grpckt_out="."  greeter.proto
+
+protoc \
+  -I /home/ksyunya/work/java/trainings/ \
+  --plugin=protoc-gen-grpc-java=/home/ksyunya/Загрузки/protoc-gen-grpc-java-1.9.1-linux-x86_64.exe \
+  --plugin=protoc-gen-grpckt=/usr/lib/protoc/protoc-kotlin.sh \
+  --java_out=. \
+  --grpc-java_out=. \
+  --grpckt_out=. \
+  greeter.proto
