@@ -10,8 +10,8 @@ public interface AddExerciseRespOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int64 workout_exercise_id = 1;</code>
-   * @return The workoutExerciseId.
+   * <code>int64 exercise_id = 1;</code>
+   * @return The exerciseId.
    */
-  long getWorkoutExerciseId();
+  long getExerciseId();
 }

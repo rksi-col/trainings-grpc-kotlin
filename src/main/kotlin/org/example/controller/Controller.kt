@@ -65,7 +65,7 @@ class Controller(val service: Service) : TrainingsServiceGrpcKt.TrainingsService
 
                 request.hasTimestamp() -> {
                     val training = service.getTrainingWithTimestamp(
-                        accountId = request.accountId,  // ← Добавлен accountId
+                        accountId = request.accountId,
                         timestamp = request.timestamp
                     ) ?: throw StatusException(Status.NOT_FOUND.withDescription("Training not found"))
 
@@ -85,20 +85,21 @@ class Controller(val service: Service) : TrainingsServiceGrpcKt.TrainingsService
         }
     }
 
-    override suspend fun addExerciseToTraining(request: AddExerciseReq) : AddExerciseResp {
+    override suspend fun addExerciseToTraining(request: AddExerciseReq): AddExerciseResp {
         return try {
             val exercise = AddExerciseToTraining(
                 exerciseId = request.exerciseId,
                 sortId = request.sortId
             )
 
-            val workoutExerciseId = service.addExerciseToTraining(
+            service.addExerciseToTraining(
+                accountId = request.accountId,
                 trainingId = request.trainingId,
                 exercise = exercise
             )
 
             AddExerciseResp.newBuilder()
-                .setWorkoutExerciseId(workoutExerciseId)
+                .setExerciseId(request.exerciseId)
                 .build()
 
         } catch (e: IllegalArgumentException) {
@@ -111,8 +112,9 @@ class Controller(val service: Service) : TrainingsServiceGrpcKt.TrainingsService
     override suspend fun removeExerciseFromTraining(request: RemoveExerciseReq): Empty {
         return try {
             val removed = service.removeExerciseFromTraining(
+                accountId = request.accountId,
                 trainingId = request.trainingId,
-                workoutExerciseId = request.workoutExerciseId
+                exerciseId = request.exerciseId
             )
 
             if (!removed) {

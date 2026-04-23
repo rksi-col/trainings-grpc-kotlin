@@ -10,14 +10,20 @@ public interface RemoveExerciseReqOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int64 training_id = 1;</code>
+   * <code>int64 account_id = 1;</code>
+   * @return The accountId.
+   */
+  long getAccountId();
+
+  /**
+   * <code>int64 training_id = 2;</code>
    * @return The trainingId.
    */
   long getTrainingId();
 
   /**
-   * <code>int64 workout_exercise_id = 2;</code>
-   * @return The workoutExerciseId.
+   * <code>int64 exercise_id = 3;</code>
+   * @return The exerciseId.
    */
-  long getWorkoutExerciseId();
+  long getExerciseId();
 }

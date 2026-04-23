@@ -32,7 +32,7 @@ fun main() {
     }
 
     val server: Server = ServerBuilder
-        .forPort(50051)
+        .forPort(50055)
         .addService(trainingsController)
         .build()
 

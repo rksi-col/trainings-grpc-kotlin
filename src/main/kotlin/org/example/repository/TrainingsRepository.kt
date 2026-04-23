@@ -13,8 +13,8 @@ interface Repository {
     fun createTraining(createTrainingDomain: CreateTraining)
     fun getTrainingWithTimestamp(accountId: Long, timestamp: Long): GetTrainingWithTimestamp
     fun getTrainingsByRange(accountId: Long, from: Long, to: Long): List<GetTrainingWithTimestamp>
-    fun addExerciseToTraining(trainingId: Long, exercise: AddExerciseToTraining): Long
-    fun removeExerciseFromTraining(trainingId: Long, workoutExerciseId: Long): Boolean
+    fun addExerciseToTraining(accountId: Long, trainingId: Long, exercise: AddExerciseToTraining)
+    fun removeExerciseFromTraining(accountId: Long, trainingId: Long, workoutExerciseId: Long): Boolean
 }
 
 class TrainingsRepository(val dataSource: DataSource) : Repository {
@@ -131,42 +131,58 @@ class TrainingsRepository(val dataSource: DataSource) : Repository {
         }
     }
 
-    override fun addExerciseToTraining(trainingId: Long, exercise: AddExerciseToTraining): Long {
+    override fun addExerciseToTraining(accountId: Long, trainingId: Long, exercise: AddExerciseToTraining) {
         dataSource.connection.use { conn ->
+            val checkSql = "SELECT 1 FROM trainings WHERE id = ? AND account_id = ?"
+            conn.prepareStatement(checkSql).use { stmt ->
+                stmt.setLong(1, trainingId)
+                stmt.setLong(2, accountId)
+                stmt.executeQuery().use { rs ->
+                    if (!rs.next()) {
+                        throw IllegalStateException("Training does not belong to user")
+                    }
+                }
+            }
+
             val sql = """
-                INSERT INTO workout_exercises (training_id, exercise_id, sort_id)
-                VALUES (?, ?, ?)
-                RETURNING id
-            """.trimIndent()
+            INSERT INTO workout_exercises (training_id, exercise_id, sort_id)
+            VALUES (?, ?, ?)
+            RETURNING id
+        """.trimIndent()
+
             conn.prepareStatement(sql).use { stmt ->
                 stmt.setLong(1, trainingId)
                 stmt.setLong(2, exercise.exerciseId)
                 stmt.setLong(3, exercise.sortId)
-
                 stmt.executeQuery().use { rs ->
-                    if (rs.next()) {
-                        return rs.getLong(1)
-                    } else {
-                        throw IllegalStateException("Failed to add exercise to training $trainingId")
-                    }
+                    if (rs.next()) rs.getLong(1)
+                    else throw IllegalStateException("Failed to add exercise")
                 }
-
             }
-
         }
     }
 
-    override fun removeExerciseFromTraining(trainingId: Long, workoutExerciseId: Long): Boolean {
+
+    override fun removeExerciseFromTraining(
+        accountId: Long,
+        trainingId: Long,
+        exerciseId: Long
+    ): Boolean {
         dataSource.connection.use { conn ->
             val sql = """
-                DELETE FROM workout_exercises WHERE id = ? AND training_id = ?
-            """.trimIndent()
-            conn.prepareStatement(sql).use { stmt ->
-                stmt.setLong(1, workoutExerciseId)
-                stmt.setLong(2, trainingId)
+            DELETE FROM workout_exercises
+            USING trainings t
+            WHERE workout_exercises.training_id = ?
+              AND workout_exercises.exercise_id = ?   
+              AND workout_exercises.training_id = t.id
+              AND t.account_id = ?
+        """.trimIndent()
 
-                val rowsAffected = stmt.executeUpdate()
-                return rowsAffected > 0
+            conn.prepareStatement(sql).use { stmt ->
+                stmt.setLong(1, trainingId)
+                stmt.setLong(2, exerciseId)
+                stmt.setLong(3, accountId)
+                return stmt.executeUpdate() > 0
             }
         }
     }

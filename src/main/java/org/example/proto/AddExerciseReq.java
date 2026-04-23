@@ -42,10 +42,21 @@ private static final long serialVersionUID = 0L;
             org.example.proto.AddExerciseReq.class, org.example.proto.AddExerciseReq.Builder.class);
   }
 
-  public static final int TRAINING_ID_FIELD_NUMBER = 1;
+  public static final int ACCOUNT_ID_FIELD_NUMBER = 1;
+  private long accountId_ = 0L;
+  /**
+   * <code>int64 account_id = 1;</code>
+   * @return The accountId.
+   */
+  @java.lang.Override
+  public long getAccountId() {
+    return accountId_;
+  }
+
+  public static final int TRAINING_ID_FIELD_NUMBER = 2;
   private long trainingId_ = 0L;
   /**
-   * <code>int64 training_id = 1;</code>
+   * <code>int64 training_id = 2;</code>
    * @return The trainingId.
    */
   @java.lang.Override
@@ -53,10 +64,10 @@ private static final long serialVersionUID = 0L;
     return trainingId_;
   }
 
-  public static final int EXERCISE_ID_FIELD_NUMBER = 2;
+  public static final int EXERCISE_ID_FIELD_NUMBER = 3;
   private long exerciseId_ = 0L;
   /**
-   * <code>int64 exercise_id = 2;</code>
+   * <code>int64 exercise_id = 3;</code>
    * @return The exerciseId.
    */
   @java.lang.Override
@@ -64,10 +75,10 @@ private static final long serialVersionUID = 0L;
     return exerciseId_;
   }
 
-  public static final int SORT_ID_FIELD_NUMBER = 3;
+  public static final int SORT_ID_FIELD_NUMBER = 4;
   private long sortId_ = 0L;
   /**
-   * <code>int64 sort_id = 3;</code>
+   * <code>int64 sort_id = 4;</code>
    * @return The sortId.
    */
   @java.lang.Override
@@ -89,14 +100,17 @@ private static final long serialVersionUID = 0L;
   @java.lang.Override
   public void writeTo(com.google.protobuf.CodedOutputStream output)
                       throws java.io.IOException {
+    if (accountId_ != 0L) {
+      output.writeInt64(1, accountId_);
+    }
     if (trainingId_ != 0L) {
-      output.writeInt64(1, trainingId_);
+      output.writeInt64(2, trainingId_);
     }
     if (exerciseId_ != 0L) {
-      output.writeInt64(2, exerciseId_);
+      output.writeInt64(3, exerciseId_);
     }
     if (sortId_ != 0L) {
-      output.writeInt64(3, sortId_);
+      output.writeInt64(4, sortId_);
     }
     getUnknownFields().writeTo(output);
   }
@@ -107,17 +121,21 @@ private static final long serialVersionUID = 0L;
     if (size != -1) return size;
 
     size = 0;
+    if (accountId_ != 0L) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt64Size(1, accountId_);
+    }
     if (trainingId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(1, trainingId_);
+        .computeInt64Size(2, trainingId_);
     }
     if (exerciseId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(2, exerciseId_);
+        .computeInt64Size(3, exerciseId_);
     }
     if (sortId_ != 0L) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt64Size(3, sortId_);
+        .computeInt64Size(4, sortId_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -134,6 +152,8 @@ private static final long serialVersionUID = 0L;
     }
     org.example.proto.AddExerciseReq other = (org.example.proto.AddExerciseReq) obj;
 
+    if (getAccountId()
+        != other.getAccountId()) return false;
     if (getTrainingId()
         != other.getTrainingId()) return false;
     if (getExerciseId()
@@ -151,6 +171,9 @@ private static final long serialVersionUID = 0L;
     }
     int hash = 41;
     hash = (19 * hash) + getDescriptor().hashCode();
+    hash = (37 * hash) + ACCOUNT_ID_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        getAccountId());
     hash = (37 * hash) + TRAINING_ID_FIELD_NUMBER;
     hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
         getTrainingId());
@@ -291,6 +314,7 @@ private static final long serialVersionUID = 0L;
     public Builder clear() {
       super.clear();
       bitField0_ = 0;
+      accountId_ = 0L;
       trainingId_ = 0L;
       exerciseId_ = 0L;
       sortId_ = 0L;
@@ -328,12 +352,15 @@ private static final long serialVersionUID = 0L;
     private void buildPartial0(org.example.proto.AddExerciseReq result) {
       int from_bitField0_ = bitField0_;
       if (((from_bitField0_ & 0x00000001) != 0)) {
-        result.trainingId_ = trainingId_;
+        result.accountId_ = accountId_;
       }
       if (((from_bitField0_ & 0x00000002) != 0)) {
-        result.exerciseId_ = exerciseId_;
+        result.trainingId_ = trainingId_;
       }
       if (((from_bitField0_ & 0x00000004) != 0)) {
+        result.exerciseId_ = exerciseId_;
+      }
+      if (((from_bitField0_ & 0x00000008) != 0)) {
         result.sortId_ = sortId_;
       }
     }
@@ -350,6 +377,9 @@ private static final long serialVersionUID = 0L;
 
     public Builder mergeFrom(org.example.proto.AddExerciseReq other) {
       if (other == org.example.proto.AddExerciseReq.getDefaultInstance()) return this;
+      if (other.getAccountId() != 0L) {
+        setAccountId(other.getAccountId());
+      }
       if (other.getTrainingId() != 0L) {
         setTrainingId(other.getTrainingId());
       }
@@ -386,20 +416,25 @@ private static final long serialVersionUID = 0L;
               done = true;
               break;
             case 8: {
-              trainingId_ = input.readInt64();
+              accountId_ = input.readInt64();
               bitField0_ |= 0x00000001;
               break;
             } // case 8
             case 16: {
-              exerciseId_ = input.readInt64();
+              trainingId_ = input.readInt64();
               bitField0_ |= 0x00000002;
               break;
             } // case 16
             case 24: {
-              sortId_ = input.readInt64();
+              exerciseId_ = input.readInt64();
               bitField0_ |= 0x00000004;
               break;
             } // case 24
+            case 32: {
+              sortId_ = input.readInt64();
+              bitField0_ |= 0x00000008;
+              break;
+            } // case 32
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -417,9 +452,41 @@ private static final long serialVersionUID = 0L;
     }
     private int bitField0_;
 
+    private long accountId_ ;
+    /**
+     * <code>int64 account_id = 1;</code>
+     * @return The accountId.
+     */
+    @java.lang.Override
+    public long getAccountId() {
+      return accountId_;
+    }
+    /**
+     * <code>int64 account_id = 1;</code>
+     * @param value The accountId to set.
+     * @return This builder for chaining.
+     */
+    public Builder setAccountId(long value) {
+
+      accountId_ = value;
+      bitField0_ |= 0x00000001;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int64 account_id = 1;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearAccountId() {
+      bitField0_ = (bitField0_ & ~0x00000001);
+      accountId_ = 0L;
+      onChanged();
+      return this;
+    }
+
     private long trainingId_ ;
     /**
-     * <code>int64 training_id = 1;</code>
+     * <code>int64 training_id = 2;</code>
      * @return The trainingId.
      */
     @java.lang.Override
@@ -427,23 +494,23 @@ private static final long serialVersionUID = 0L;
       return trainingId_;
     }
     /**
-     * <code>int64 training_id = 1;</code>
+     * <code>int64 training_id = 2;</code>
      * @param value The trainingId to set.
      * @return This builder for chaining.
      */
     public Builder setTrainingId(long value) {
 
       trainingId_ = value;
-      bitField0_ |= 0x00000001;
+      bitField0_ |= 0x00000002;
       onChanged();
       return this;
     }
     /**
-     * <code>int64 training_id = 1;</code>
+     * <code>int64 training_id = 2;</code>
      * @return This builder for chaining.
      */
     public Builder clearTrainingId() {
-      bitField0_ = (bitField0_ & ~0x00000001);
+      bitField0_ = (bitField0_ & ~0x00000002);
       trainingId_ = 0L;
       onChanged();
       return this;
@@ -451,7 +518,7 @@ private static final long serialVersionUID = 0L;
 
     private long exerciseId_ ;
     /**
-     * <code>int64 exercise_id = 2;</code>
+     * <code>int64 exercise_id = 3;</code>
      * @return The exerciseId.
      */
     @java.lang.Override
@@ -459,23 +526,23 @@ private static final long serialVersionUID = 0L;
       return exerciseId_;
     }
     /**
-     * <code>int64 exercise_id = 2;</code>
+     * <code>int64 exercise_id = 3;</code>
      * @param value The exerciseId to set.
      * @return This builder for chaining.
      */
     public Builder setExerciseId(long value) {
 
       exerciseId_ = value;
-      bitField0_ |= 0x00000002;
+      bitField0_ |= 0x00000004;
       onChanged();
       return this;
     }
     /**
-     * <code>int64 exercise_id = 2;</code>
+     * <code>int64 exercise_id = 3;</code>
      * @return This builder for chaining.
      */
     public Builder clearExerciseId() {
-      bitField0_ = (bitField0_ & ~0x00000002);
+      bitField0_ = (bitField0_ & ~0x00000004);
       exerciseId_ = 0L;
       onChanged();
       return this;
@@ -483,7 +550,7 @@ private static final long serialVersionUID = 0L;
 
     private long sortId_ ;
     /**
-     * <code>int64 sort_id = 3;</code>
+     * <code>int64 sort_id = 4;</code>
      * @return The sortId.
      */
     @java.lang.Override
@@ -491,23 +558,23 @@ private static final long serialVersionUID = 0L;
       return sortId_;
     }
     /**
-     * <code>int64 sort_id = 3;</code>
+     * <code>int64 sort_id = 4;</code>
      * @param value The sortId to set.
      * @return This builder for chaining.
      */
     public Builder setSortId(long value) {
 
       sortId_ = value;
-      bitField0_ |= 0x00000004;
+      bitField0_ |= 0x00000008;
       onChanged();
       return this;
     }
     /**
-     * <code>int64 sort_id = 3;</code>
+     * <code>int64 sort_id = 4;</code>
      * @return This builder for chaining.
      */
     public Builder clearSortId() {
-      bitField0_ = (bitField0_ & ~0x00000004);
+      bitField0_ = (bitField0_ & ~0x00000008);
       sortId_ = 0L;
       onChanged();
       return this;

@@ -10,19 +10,25 @@ public interface AddExerciseReqOrBuilder extends
     com.google.protobuf.MessageOrBuilder {
 
   /**
-   * <code>int64 training_id = 1;</code>
+   * <code>int64 account_id = 1;</code>
+   * @return The accountId.
+   */
+  long getAccountId();
+
+  /**
+   * <code>int64 training_id = 2;</code>
    * @return The trainingId.
    */
   long getTrainingId();
 
   /**
-   * <code>int64 exercise_id = 2;</code>
+   * <code>int64 exercise_id = 3;</code>
    * @return The exerciseId.
    */
   long getExerciseId();
 
   /**
-   * <code>int64 sort_id = 3;</code>
+   * <code>int64 sort_id = 4;</code>
    * @return The sortId.
    */
   long getSortId();

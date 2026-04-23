@@ -9,8 +9,8 @@ interface Service {
     fun createTraining(createTrainingDomain: CreateTraining)
     fun getTrainingWithTimestamp(accountId: Long, timestamp: Long): GetTrainingWithTimestamp
     fun getTrainingsByRange(accountId: Long, from: Long, to: Long): List<GetTrainingWithTimestamp>
-    fun addExerciseToTraining(trainingId: Long, exercise: AddExerciseToTraining): Long
-    fun removeExerciseFromTraining(trainingId: Long, workoutExerciseId: Long): Boolean
+    fun addExerciseToTraining(accountId: Long, trainingId: Long, exercise: AddExerciseToTraining)
+    fun removeExerciseFromTraining(accountId: Long, trainingId: Long, exerciseId: Long): Boolean
 }
 
 class TrainingsService(val repository: Repository) : Service {
@@ -23,28 +23,20 @@ class TrainingsService(val repository: Repository) : Service {
     }
 
     override fun getTrainingWithTimestamp(accountId: Long, timestamp: Long): GetTrainingWithTimestamp {
-        try {
-            return repository.getTrainingWithTimestamp(accountId, timestamp)
-        } catch (e: Exception) {
-            throw e
-        }
+        return repository.getTrainingWithTimestamp(accountId, timestamp)
     }
 
     override fun getTrainingsByRange(accountId: Long, from: Long, to: Long): List<GetTrainingWithTimestamp> {
-        try {
-            return repository.getTrainingsByRange(accountId, from, to)
-        } catch (e: Exception) {
-            throw e
-        }
+        return repository.getTrainingsByRange(accountId, from, to)
     }
 
-   override fun addExerciseToTraining(trainingId: Long, exercise: AddExerciseToTraining): Long {
+    override fun addExerciseToTraining(accountId: Long, trainingId: Long, exercise: AddExerciseToTraining) {
         require(exercise.exerciseId > 0) { "Exercise ID must be positive" }
         require(exercise.sortId > 0) { "Sort ID must be positive" }
-        return repository.addExerciseToTraining(trainingId, exercise)
+        repository.addExerciseToTraining(accountId, trainingId, exercise)
     }
 
-    override fun removeExerciseFromTraining(trainingId: Long, workoutExerciseId: Long): Boolean {
-        return repository.removeExerciseFromTraining(trainingId, workoutExerciseId)
+    override fun removeExerciseFromTraining(accountId: Long, trainingId: Long, exerciseId: Long): Boolean {
+        return repository.removeExerciseFromTraining(accountId, trainingId, exerciseId)
     }
 }

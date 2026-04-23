@@ -106,22 +106,23 @@ public final class Trainings {
       "rget_muscle\030\004 \001(\t\032{\n\010Training\022\n\n\002id\030\001 \001(" +
       "\003\022\021\n\ttimestamp\030\002 \001(\003\022\020\n\010category\030\003 \001(\t\022>" +
       "\n\texercises\030\004 \003(\0132+.org.example.proto.Ge" +
-      "tTrainingResp.Exercise\"K\n\016AddExerciseReq" +
-      "\022\023\n\013training_id\030\001 \001(\003\022\023\n\013exercise_id\030\002 \001" +
-      "(\003\022\017\n\007sort_id\030\003 \001(\003\".\n\017AddExerciseResp\022\033" +
-      "\n\023workout_exercise_id\030\001 \001(\003\"E\n\021RemoveExe" +
-      "rciseReq\022\023\n\013training_id\030\001 \001(\003\022\033\n\023workout" +
-      "_exercise_id\030\002 \001(\0032\370\002\n\020TrainingsService\022" +
-      "P\n\016CreateTraining\022$.org.example.proto.Cr" +
-      "eateTrainingReq\032\030.org.example.proto.Empt" +
-      "y\022T\n\013GetTraining\022!.org.example.proto.Get" +
-      "TrainingReq\032\".org.example.proto.GetTrain" +
-      "ingResp\022^\n\025AddExerciseToTraining\022!.org.e" +
-      "xample.proto.AddExerciseReq\032\".org.exampl" +
-      "e.proto.AddExerciseResp\022\\\n\032RemoveExercis" +
-      "eFromTraining\022$.org.example.proto.Remove" +
-      "ExerciseReq\032\030.org.example.proto.EmptyB\025\n" +
-      "\021org.example.protoP\001b\006proto3"
+      "tTrainingResp.Exercise\"_\n\016AddExerciseReq" +
+      "\022\022\n\naccount_id\030\001 \001(\003\022\023\n\013training_id\030\002 \001(" +
+      "\003\022\023\n\013exercise_id\030\003 \001(\003\022\017\n\007sort_id\030\004 \001(\003\"" +
+      "&\n\017AddExerciseResp\022\023\n\013exercise_id\030\001 \001(\003\"" +
+      "Q\n\021RemoveExerciseReq\022\022\n\naccount_id\030\001 \001(\003" +
+      "\022\023\n\013training_id\030\002 \001(\003\022\023\n\013exercise_id\030\003 \001" +
+      "(\0032\370\002\n\020TrainingsService\022P\n\016CreateTrainin" +
+      "g\022$.org.example.proto.CreateTrainingReq\032" +
+      "\030.org.example.proto.Empty\022T\n\013GetTraining" +
+      "\022!.org.example.proto.GetTrainingReq\032\".or" +
+      "g.example.proto.GetTrainingResp\022^\n\025AddEx" +
+      "erciseToTraining\022!.org.example.proto.Add" +
+      "ExerciseReq\032\".org.example.proto.AddExerc" +
+      "iseResp\022\\\n\032RemoveExerciseFromTraining\022$." +
+      "org.example.proto.RemoveExerciseReq\032\030.or" +
+      "g.example.proto.EmptyB\025\n\021org.example.pro" +
+      "toP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -180,19 +181,19 @@ public final class Trainings {
     internal_static_org_example_proto_AddExerciseReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_example_proto_AddExerciseReq_descriptor,
-        new java.lang.String[] { "TrainingId", "ExerciseId", "SortId", });
+        new java.lang.String[] { "AccountId", "TrainingId", "ExerciseId", "SortId", });
     internal_static_org_example_proto_AddExerciseResp_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_org_example_proto_AddExerciseResp_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_example_proto_AddExerciseResp_descriptor,
-        new java.lang.String[] { "WorkoutExerciseId", });
+        new java.lang.String[] { "ExerciseId", });
     internal_static_org_example_proto_RemoveExerciseReq_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_org_example_proto_RemoveExerciseReq_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_org_example_proto_RemoveExerciseReq_descriptor,
-        new java.lang.String[] { "TrainingId", "WorkoutExerciseId", });
+        new java.lang.String[] { "AccountId", "TrainingId", "ExerciseId", });
     descriptor.resolveAllFeaturesImmutable();
   }
 
