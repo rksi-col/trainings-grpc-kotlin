@@ -2,45 +2,34 @@ package org.example
 import io.grpc.Server
 import io.grpc.ServerBuilder
 import org.example.controller.Controller
-import org.example.domain.Exercise
-import org.example.org.example.migrations.MigrationService
-import org.example.proto.GreeterGrpcKt
-import org.example.proto.HelloReply
 
-import org.example.proto.HelloRequest
+import org.example.org.example.migrations.MigrationService
+import org.example.proto.TrainingsServiceGrpc
+
 import org.example.repository.TrainingsRepository
 import org.example.service.TrainingsService
 
 import org.postgresql.ds.PGSimpleDataSource
 import javax.sql.DataSource
 
-class Impl : GreeterGrpcKt.GreeterCoroutineImplBase() {
-    override suspend fun sayHello(request: HelloRequest): HelloReply {
-        return HelloReply.newBuilder().setMessage("Hello ${request.name}").build()
-    }
-}
-
 fun main() {
-    val exercise = Exercise(0, "name", "muscle")
-    println(exercise)
+    // migration
     val dataSource = createDataSource()
     val migrationService = MigrationService(dataSource)
-
-
-
 //    migrationService.clean()
     migrationService.migrate()
 //    migrationService.info()
 
-//    val trainingsRepository = TrainingsRepository()
-//    val trainingsService = TrainingsService(trainingsRepository)
-//    val trainingsController = Controller(trainingsService)
-
     val trainingsController = Controller(
         TrainingsService(
-            TrainingsRepository()
+            TrainingsRepository(dataSource),
         )
     )
+    val serviceDescriptor = TrainingsServiceGrpc.getServiceDescriptor()
+    println("📋 Методы сервиса:")
+    serviceDescriptor.methods.forEach { method ->
+        println("   - ${method.fullMethodName}")
+    }
 
     val server: Server = ServerBuilder
         .forPort(50051)

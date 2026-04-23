@@ -5,7 +5,18 @@ protoc \
   -I /home/ksyunya/work/java/trainings/ \
   --plugin=protoc-gen-grpc-java=/home/ksyunya/Загрузки/protoc-gen-grpc-java-1.9.1-linux-x86_64.exe \
   --plugin=protoc-gen-grpckt=/usr/lib/protoc/protoc-kotlin.sh \
-  --java_out=. \
-  --grpc-java_out=. \
-  --grpckt_out=. \
+  --java_out=src/main/java \
+  --grpc-java_out=src/main/java \
+  --grpckt_out=src/main/java \
   greeter.proto
+
+
+ШАРАГА
+protoc \
+  -I /home/ksyunya/work/college/trainings_proto_files \
+  --plugin=protoc-gen-grpc-java=/home/ksyunya/Загрузки/protoc-gen-grpc-java-1.9.1-linux-x86_64.exe \
+  --plugin=protoc-gen-grpckt=/usr/lib/protoc/protoc-kotlin.sh \
+  --java_out=src/main/java \
+  --grpc-java_out=src/main/java \
+  --grpckt_out=src/main/java \
+    trainings.proto
